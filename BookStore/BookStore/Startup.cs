@@ -23,6 +23,7 @@ namespace BookStore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddControllersWithViews();
             services.AddRazorPages();
         }
 
@@ -38,18 +39,19 @@ namespace BookStore
                 app.UseExceptionHandler("/Error");
             }
 
-            app.UseStaticFiles();
+            //app.Use(async (context,next)=>{
+            //    await context.Response.WriteAsync("Hellow from first middleware");
+            //   await next();
+            //});
+
+            //app.UseStaticFiles();
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
+            //app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-                
-                endpoints.MapGet("/",async context=> {
-                    await context.Response.WriteAsync("Hellow World");
-                });
+                endpoints.MapDefaultControllerRoute();
             });
         }
     }
