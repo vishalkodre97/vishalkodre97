@@ -8,9 +8,9 @@ namespace BookStore.Controllers
 {
     public class HomeController:Controller
     {
-        public string index()
+        public ViewResult index()
         {
-            return "Hellow from controller";
+            return View();
         }
     }
 }
