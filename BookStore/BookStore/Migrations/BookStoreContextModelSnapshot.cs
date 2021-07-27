@@ -19,6 +19,29 @@ namespace BookStore.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("BookStore.DataRepo.BookImageGallery", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("URL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("BookImageGallery");
+                });
+
             modelBuilder.Entity("BookStore.DataRepo.Books", b =>
                 {
                     b.Property<int>("Id")
@@ -30,6 +53,9 @@ namespace BookStore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Catagory")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CoverImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreatedOn")
@@ -73,6 +99,15 @@ namespace BookStore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Language");
+                });
+
+            modelBuilder.Entity("BookStore.DataRepo.BookImageGallery", b =>
+                {
+                    b.HasOne("BookStore.DataRepo.Books", "Book")
+                        .WithMany("bookImageGallery")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BookStore.DataRepo.Books", b =>

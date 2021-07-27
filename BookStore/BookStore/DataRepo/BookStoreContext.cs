@@ -17,6 +17,7 @@ namespace BookStore
 
         public DbSet<Books> Books { get; set; }
         public DbSet<Language> Language { get; set; }
+        public DbSet<BookImageGallery> BookImageGallery { get; set; }
 
 
     }

@@ -6,6 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\booksImage\cover\" />
+    <Folder Include="wwwroot\booksImage\gallery\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

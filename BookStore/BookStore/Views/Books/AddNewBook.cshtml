@@ -8,26 +8,43 @@
 
 <div class="container">
     <h3 class="display-4">Add New Book</h3>
-    <hr/>
-    @if (ViewBag.IsSuccess==true)
+    <hr />
+    @if (ViewBag.IsSuccess == true)
     {
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Books</strong> Book added successfully
-        <a asp-controller="Books" asp-action="GetBook" asp-route-id="@ViewBag.Id"
-           class="btn btn-sm btn-outline-secondary">Click Check Your Book</a>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Books</strong> Book added successfully
+            <a asp-controller="Books" asp-action="GetBook" asp-route-id="@ViewBag.Id"
+               class="btn btn-sm btn-outline-secondary">Click Check Your Book</a>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
     }
- 
-<form asp-action="AddNewBook" asp-controller="Books" method="post">
+
+<form enctype="multipart/form-data" asp-action="AddNewBook" asp-controller="Books" method="post">
     <div class="form-group">
         <label asp-for="LanguageId" class="control-label"></label>
         <select asp-for="LanguageId" class="form-control" asp-items="ViewBag.Language">
             <option>Please chose your language</option>
         </select>
         <span asp-validation-for="LanguageId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CoverImage" class="control-label"></label>
+        <div class="custom-file">
+            <input asp-for="CoverImage" class="custom-file-input" id="customFile" />
+            <label asp-for="CoverImage" class="custom-file-label">Chose File</label>
+        </div>
+        <span asp-validation-for="CoverImage" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="GalleryFiles" class="control-label"></label>
+        <div class="custom-file">
+            <input asp-for="GalleryFiles" class="custom-file-input" id="customFile" />
+            <label asp-for="GalleryFiles" class="custom-file-label">Chose File</label>
+        </div>
+        <span asp-validation-for="GalleryFiles" class="text-danger"></span>
     </div>
 
     <div class="form-group">
@@ -61,8 +78,7 @@
     <div class="form-group">
         <input type="submit" value="Add book" class="btn btn-primary btn" />
     </div>
-
 </form>
-        </div>
-  
+</div>
+
 

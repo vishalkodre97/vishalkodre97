@@ -24,11 +24,23 @@ namespace BookStore.Repository
                 LanguageId=model.LanguageId,
                 Catagory=model.Catagory,
                 CreatedOn = DateTime.UtcNow,
+                Author=model.Author,
                 Description = model.Description,
                 TotalPages = model.TotalPages.HasValue ? model.TotalPages.Value : 0,
-                UpdatedOn = DateTime.UtcNow
+                UpdatedOn = DateTime.UtcNow,
+                CoverImageUrl=model.CoverImageUrl
             };
-            _context.Books.Add(newBook);
+
+            newBook.bookImageGallery = new List<BookImageGallery>();
+            foreach (var file in model.Gallery)
+            {
+                newBook.bookImageGallery.Add(new BookImageGallery 
+                { 
+                Name=file.Name,
+                URL=file.URL
+                });
+            }
+            await _context.Books.AddAsync(newBook);
             await _context.SaveChangesAsync();
             return newBook.Id;
         }
@@ -41,20 +53,29 @@ namespace BookStore.Repository
                 Id = book.Id,
                 LanguageId = book.LanguageId,
                 TotalPages = book.TotalPages,
-                Catagory = book.Catagory
+                Catagory = book.Catagory,
+                CoverImageUrl = book.CoverImageUrl
             }).ToListAsync();
         }
         public async Task<BookModel> GetBook(int id)
         {
             return await _context.Books.Where(x => x.Id == id)
-                .Select(book=> new BookModel() {
+                .Select(book => new BookModel() {
                     Author = book.Author,
                     Title = book.Title,
                     Description = book.Description,
                     LanguageId = book.LanguageId,
                     Language = book.Language.Text,
                     TotalPages = book.TotalPages,
-                    Catagory = book.Catagory
+                    Catagory = book.Catagory,
+                    CoverImageUrl = book.CoverImageUrl,
+                    Gallery = book.bookImageGallery.Select(g => new GalleryModel()
+                    {
+                        Id = g.Id,
+                        Name = g.Name,
+                        URL = g.URL
+
+                    }).ToList()
                 }).FirstOrDefaultAsync();                
         }
         public List<BookModel> SearchBooks(string title, string authorName)

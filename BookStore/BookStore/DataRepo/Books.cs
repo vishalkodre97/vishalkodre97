@@ -16,6 +16,8 @@ namespace BookStore.DataRepo
         public int LanguageId { get; set; }
         public DateTime? CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
+        public string CoverImageUrl { get; set; }
         public Language Language { get; set; }
+        public ICollection<BookImageGallery> bookImageGallery { get; set; }
     }
 }
