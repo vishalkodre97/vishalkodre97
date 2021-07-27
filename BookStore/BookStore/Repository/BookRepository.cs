@@ -33,28 +33,17 @@ namespace BookStore.Repository
             return newBook.Id;
         }
         public async Task<List<BookModel>> GetAllBooks()
-        {
-            var books = new List<BookModel>();
-            var allBooks = await _context.Books.ToListAsync();
-            if (allBooks?.Any() == true)
-            {
-                foreach (var book in allBooks)
-                {
-                    books.Add(new BookModel()
-                    {
-                        Author = book.Author,
-                        Title = book.Title,
-                        Description = book.Description,
-                        Id = book.Id,
-                        LanguageId = book.LanguageId,                        
-                        TotalPages = book.TotalPages,
-                        Catagory = book.Catagory
-                    });
-                }
-            }
-            return books;
+        {            
+            return await _context.Books.Select(book => new BookModel() {
+                Author = book.Author,
+                Title = book.Title,
+                Description = book.Description,
+                Id = book.Id,
+                LanguageId = book.LanguageId,
+                TotalPages = book.TotalPages,
+                Catagory = book.Catagory
+            }).ToListAsync();
         }
-
         public async Task<BookModel> GetBook(int id)
         {
             return await _context.Books.Where(x => x.Id == id)
@@ -68,7 +57,6 @@ namespace BookStore.Repository
                     Catagory = book.Catagory
                 }).FirstOrDefaultAsync();                
         }
-
         public List<BookModel> SearchBooks(string title, string authorName)
         {
             return null;

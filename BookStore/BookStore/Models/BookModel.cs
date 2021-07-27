@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookStore.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace BookStore.Models
     {
         public int Id { get; set; }
         [Required(ErrorMessage ="Please enter title")]
+        [NewCustomValidation()]
         public string Title { get; set; }
         [Required(ErrorMessage = "Please enter author")]
         public string Author { get; set; }
