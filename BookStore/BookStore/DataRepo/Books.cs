@@ -19,5 +19,6 @@ namespace BookStore.DataRepo
         public string CoverImageUrl { get; set; }
         public Language Language { get; set; }
         public ICollection<BookImageGallery> bookImageGallery { get; set; }
+        public string BookPdfURL { get; set; }
     }
 }

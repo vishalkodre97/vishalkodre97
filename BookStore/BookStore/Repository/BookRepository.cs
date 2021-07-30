@@ -28,7 +28,9 @@ namespace BookStore.Repository
                 Description = model.Description,
                 TotalPages = model.TotalPages.HasValue ? model.TotalPages.Value : 0,
                 UpdatedOn = DateTime.UtcNow,
-                CoverImageUrl=model.CoverImageUrl
+                CoverImageUrl=model.CoverImageUrl,
+                BookPdfURL=model.BookPdfURL
+               
             };
 
             newBook.bookImageGallery = new List<BookImageGallery>();
@@ -57,6 +59,21 @@ namespace BookStore.Repository
                 CoverImageUrl = book.CoverImageUrl
             }).ToListAsync();
         }
+
+        public async Task<List<BookModel>> GetTopBooks(int count)
+        {
+            return await _context.Books.Select(book => new BookModel()
+            {
+                Author = book.Author,
+                Title = book.Title,
+                Description = book.Description,
+                Id = book.Id,
+                LanguageId = book.LanguageId,
+                TotalPages = book.TotalPages,
+                Catagory = book.Catagory,
+                CoverImageUrl = book.CoverImageUrl
+            }).Take(count).ToListAsync();
+        }
         public async Task<BookModel> GetBook(int id)
         {
             return await _context.Books.Where(x => x.Id == id)
@@ -75,7 +92,8 @@ namespace BookStore.Repository
                         Name = g.Name,
                         URL = g.URL
 
-                    }).ToList()
+                    }).ToList(),
+                    BookPdfURL=book.BookPdfURL
                 }).FirstOrDefaultAsync();                
         }
         public List<BookModel> SearchBooks(string title, string authorName)

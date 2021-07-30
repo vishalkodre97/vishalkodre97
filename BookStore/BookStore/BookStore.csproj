@@ -8,6 +8,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\booksImage\cover\" />
     <Folder Include="wwwroot\booksImage\gallery\" />
+    <Folder Include="wwwroot\booksImage\PDF\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

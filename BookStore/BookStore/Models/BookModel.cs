@@ -29,5 +29,9 @@ namespace BookStore.Models
         [Display(Name ="Select multiple image gallery")]
         public IFormFileCollection GalleryFiles { get; set; }
         public List<GalleryModel> Gallery { get; set; }
+        [Display(Name = "Upload book pdf file")]
+        public IFormFile BookPdf { get; set; }
+        public string BookPdfURL { get; set; }
+       
     }
 }

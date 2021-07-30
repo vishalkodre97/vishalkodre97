@@ -61,6 +61,12 @@ namespace BookStore.Controllers
                     //bookModel.CoverImageUrl = await UploadImages(folder, bookModel.CoverImage);
                 }
 
+                if (bookModel.BookPdf != null)
+                {
+                    string folder = "booksImage/PDF/";
+                    bookModel.BookPdfURL = await UploadImages(folder, bookModel.BookPdf);
+                }
+
                 int id = await _bookRepository.AddNewBook(bookModel);
                 if (id > 0)
                 {
